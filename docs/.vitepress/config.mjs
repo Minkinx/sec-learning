@@ -459,6 +459,323 @@ export default defineConfig({
           ],
         },
       ],
+      '/网络安全/': [
+        {
+          text: '1-基础与核心概念',
+          collapsed: false,
+          items: [
+            {
+              text: '1-网络基础',
+              collapsed: false,
+              items: [
+                { text: 'OSI与TCP-IP模型', link: '/网络安全/1-基础与核心概念/1-网络基础/OSI与TCP-IP模型' },
+                { text: '常见协议安全', link: '/网络安全/1-基础与核心概念/1-网络基础/常见协议安全' },
+                { text: '网络拓扑与分段', link: '/网络安全/1-基础与核心概念/1-网络基础/网络拓扑与分段' },
+              ],
+            },
+            {
+              text: '2-操作系统安全',
+              collapsed: false,
+              items: [
+                { text: 'Windows安全机制', link: '/网络安全/1-基础与核心概念/2-操作系统安全/Windows安全机制' },
+                { text: 'Linux安全机制', link: '/网络安全/1-基础与核心概念/2-操作系统安全/Linux安全机制' },
+                { text: '系统加固基线', link: '/网络安全/1-基础与核心概念/2-操作系统安全/系统加固基线' },
+              ],
+            },
+            {
+              text: '3-密码学',
+              collapsed: false,
+              items: [
+                { text: '对称与非对称加密', link: '/网络安全/1-基础与核心概念/3-密码学/对称与非对称加密' },
+                { text: '哈希与数字签名', link: '/网络安全/1-基础与核心概念/3-密码学/哈希与数字签名' },
+                { text: 'TLS-SSL协议深度', link: '/网络安全/1-基础与核心概念/3-密码学/TLS-SSL协议深度' },
+                { text: '国密算法体系', link: '/网络安全/1-基础与核心概念/3-密码学/国密算法体系' },
+              ],
+            },
+            {
+              text: '4-身份认证与访问控制',
+              collapsed: false,
+              items: [
+                { text: '认证机制', link: '/网络安全/1-基础与核心概念/4-身份认证与访问控制/认证机制' },
+                { text: '授权模型RBAC-ABAC', link: '/网络安全/1-基础与核心概念/4-身份认证与访问控制/授权模型RBAC-ABAC' },
+                { text: 'OAuth-SAML-OIDC', link: '/网络安全/1-基础与核心概念/4-身份认证与访问控制/OAuth-SAML-OIDC' },
+                { text: '特权账号管理PAM', link: '/网络安全/1-基础与核心概念/4-身份认证与访问控制/特权账号管理PAM' },
+              ],
+            },
+            {
+              text: '5-协议安全',
+              collapsed: false,
+              items: [
+                { text: 'DNS安全', link: '/网络安全/1-基础与核心概念/5-协议安全/DNS安全' },
+                { text: 'HTTP安全', link: '/网络安全/1-基础与核心概念/5-协议安全/HTTP安全' },
+                { text: 'BGP与路由安全', link: '/网络安全/1-基础与核心概念/5-协议安全/BGP与路由安全' },
+              ],
+            },
+          ],
+        },
+        {
+          text: '2-渗透测试与漏洞利用',
+          collapsed: false,
+          items: [
+            {
+              text: '1-信息收集',
+              collapsed: false,
+              items: [
+                { text: 'OSINT与被动侦察', link: '/网络安全/2-渗透测试与漏洞利用/1-信息收集/OSINT与被动侦察' },
+                { text: '主动扫描与指纹识别', link: '/网络安全/2-渗透测试与漏洞利用/1-信息收集/主动扫描与指纹识别' },
+                { text: '子域名枚举与GitHub监控', link: '/网络安全/2-渗透测试与漏洞利用/1-信息收集/子域名枚举与GitHub监控' },
+              ],
+            },
+            {
+              text: '2-Web安全',
+              collapsed: false,
+              items: [
+                { text: 'SQL注入', link: '/网络安全/2-渗透测试与漏洞利用/2-Web安全/SQL注入' },
+                { text: 'XSS与CSRF', link: '/网络安全/2-渗透测试与漏洞利用/2-Web安全/XSS与CSRF' },
+                { text: 'SSRF与RCE', link: '/网络安全/2-渗透测试与漏洞利用/2-Web安全/SSRF与RCE' },
+                { text: '认证绕过与JWT攻击', link: '/网络安全/2-渗透测试与漏洞利用/2-Web安全/认证绕过与JWT攻击' },
+                { text: '文件上传与WebShell', link: '/网络安全/2-渗透测试与漏洞利用/2-Web安全/文件上传与WebShell' },
+                { text: 'API安全与GraphQL注入', link: '/网络安全/2-渗透测试与漏洞利用/2-Web安全/API安全与GraphQL注入' },
+                { text: '业务逻辑漏洞', link: '/网络安全/2-渗透测试与漏洞利用/2-Web安全/业务逻辑漏洞' },
+              ],
+            },
+            {
+              text: '3-内网渗透',
+              collapsed: false,
+              items: [
+                { text: '横向移动', link: '/网络安全/2-渗透测试与漏洞利用/3-内网渗透/横向移动' },
+                { text: '权限提升', link: '/网络安全/2-渗透测试与漏洞利用/3-内网渗透/权限提升' },
+                { text: '域渗透与Kerberos攻击', link: '/网络安全/2-渗透测试与漏洞利用/3-内网渗透/域渗透与Kerberos攻击' },
+              ],
+            },
+            {
+              text: '4-移动安全',
+              collapsed: false,
+              items: [
+                { text: 'Android逆向', link: '/网络安全/2-渗透测试与漏洞利用/4-移动安全/Android逆向' },
+                { text: 'iOS安全', link: '/网络安全/2-渗透测试与漏洞利用/4-移动安全/iOS安全' },
+              ],
+            },
+            {
+              text: '5-云安全',
+              collapsed: false,
+              items: [
+                { text: '云配置审计', link: '/网络安全/2-渗透测试与漏洞利用/5-云安全/云配置审计' },
+                { text: '容器逃逸', link: '/网络安全/2-渗透测试与漏洞利用/5-云安全/容器逃逸' },
+                { text: 'Kubernetes安全', link: '/网络安全/2-渗透测试与漏洞利用/5-云安全/Kubernetes安全' },
+              ],
+            },
+            {
+              text: '6-无线安全',
+              collapsed: false,
+              items: [
+                { text: 'Wi-Fi攻击WPA2-WPA3破解', link: '/网络安全/2-渗透测试与漏洞利用/6-无线安全/Wi-Fi攻击WPA2-WPA3破解' },
+                { text: 'Evil Twin攻击', link: '/网络安全/2-渗透测试与漏洞利用/6-无线安全/Evil Twin攻击' },
+                { text: '蓝牙安全BlueBorne-BLE', link: '/网络安全/2-渗透测试与漏洞利用/6-无线安全/蓝牙安全BlueBorne-BLE' },
+                { text: 'RFID-NFC安全', link: '/网络安全/2-渗透测试与漏洞利用/6-无线安全/RFID-NFC安全' },
+              ],
+            },
+            {
+              text: '7-漏洞挖掘与利用',
+              collapsed: false,
+              items: [
+                { text: 'Fuzzing技术AFL-LibFuzzer', link: '/网络安全/2-渗透测试与漏洞利用/7-漏洞挖掘与利用/Fuzzing技术AFL-LibFuzzer' },
+                { text: '逆向工程IDA Pro-Ghidra', link: '/网络安全/2-渗透测试与漏洞利用/7-漏洞挖掘与利用/逆向工程IDA Pro-Ghidra' },
+                { text: 'Exploit开发Shellcode-ROP', link: '/网络安全/2-渗透测试与漏洞利用/7-漏洞挖掘与利用/Exploit开发Shellcode-ROP' },
+                { text: '补丁比对与1-day漏洞', link: '/网络安全/2-渗透测试与漏洞利用/7-漏洞挖掘与利用/补丁比对与1-day漏洞' },
+              ],
+            },
+          ],
+        },
+        {
+          text: '3-红蓝对抗与安全运营',
+          collapsed: false,
+          items: [
+            {
+              text: '1-红队作战',
+              collapsed: false,
+              items: [
+                { text: 'ATT-CK框架', link: '/网络安全/3-红蓝对抗与安全运营/1-红队作战/ATT-CK框架' },
+                { text: 'C2基础设施', link: '/网络安全/3-红蓝对抗与安全运营/1-红队作战/C2基础设施' },
+                { text: '钓鱼与社会工程学', link: '/网络安全/3-红蓝对抗与安全运营/1-红队作战/钓鱼与社会工程学' },
+              ],
+            },
+            {
+              text: '2-蓝队防御',
+              collapsed: false,
+              items: [
+                { text: 'SIEM-SOC建设', link: '/网络安全/3-红蓝对抗与安全运营/2-蓝队防御/SIEM-SOC建设' },
+                { text: '入侵检测IDS-IPS', link: '/网络安全/3-红蓝对抗与安全运营/2-蓝队防御/入侵检测IDS-IPS' },
+                { text: 'EDR与威胁狩猎', link: '/网络安全/3-红蓝对抗与安全运营/2-蓝队防御/EDR与威胁狩猎' },
+                { text: '蜜罐技术', link: '/网络安全/3-红蓝对抗与安全运营/2-蓝队防御/蜜罐技术' },
+              ],
+            },
+            {
+              text: '3-紫队与安全评估',
+              collapsed: false,
+              items: [
+                { text: '紫队方法论', link: '/网络安全/3-红蓝对抗与安全运营/3-紫队与安全评估/紫队方法论' },
+                { text: '安全评估框架OSSTMM-PTES', link: '/网络安全/3-红蓝对抗与安全运营/3-紫队与安全评估/安全评估框架OSSTMM-PTES' },
+                { text: '攻击面管理', link: '/网络安全/3-红蓝对抗与安全运营/3-紫队与安全评估/攻击面管理' },
+              ],
+            },
+            {
+              text: '4-威胁情报',
+              collapsed: false,
+              items: [
+                { text: 'CTI生命周期', link: '/网络安全/3-红蓝对抗与安全运营/4-威胁情报/CTI生命周期' },
+                { text: '情报共享与平台', link: '/网络安全/3-红蓝对抗与安全运营/4-威胁情报/情报共享与平台' },
+              ],
+            },
+            {
+              text: '5-应急响应与取证',
+              collapsed: false,
+              items: [
+                { text: '事件响应流程', link: '/网络安全/3-红蓝对抗与安全运营/5-应急响应与取证/事件响应流程' },
+                { text: '数字取证', link: '/网络安全/3-红蓝对抗与安全运营/5-应急响应与取证/数字取证' },
+                { text: '恶意软件分析', link: '/网络安全/3-红蓝对抗与安全运营/5-应急响应与取证/恶意软件分析' },
+              ],
+            },
+          ],
+        },
+        {
+          text: '4-安全架构与防御体系',
+          collapsed: false,
+          items: [
+            {
+              text: '1-边界安全',
+              collapsed: false,
+              items: [
+                { text: '防火墙与NGFW', link: '/网络安全/4-安全架构与防御体系/1-边界安全/防火墙与NGFW' },
+                { text: 'WAF与IDS-IPS', link: '/网络安全/4-安全架构与防御体系/1-边界安全/WAF与IDS-IPS' },
+                { text: 'DDoS防护', link: '/网络安全/4-安全架构与防御体系/1-边界安全/DDoS防护' },
+              ],
+            },
+            {
+              text: '2-零信任架构',
+              collapsed: false,
+              items: [
+                { text: '零信任核心原则', link: '/网络安全/4-安全架构与防御体系/2-零信任架构/零信任核心原则' },
+                { text: 'SDP软件定义边界', link: '/网络安全/4-安全架构与防御体系/2-零信任架构/SDP软件定义边界' },
+                { text: '微隔离技术', link: '/网络安全/4-安全架构与防御体系/2-零信任架构/微隔离技术' },
+                { text: 'BeyondCorp模式', link: '/网络安全/4-安全架构与防御体系/2-零信任架构/BeyondCorp模式' },
+                { text: '零信任成熟度模型', link: '/网络安全/4-安全架构与防御体系/2-零信任架构/零信任成熟度模型' },
+              ],
+            },
+            {
+              text: '3-端点安全',
+              collapsed: false,
+              items: [
+                { text: 'EDR端点检测与响应', link: '/网络安全/4-安全架构与防御体系/3-端点安全/EDR端点检测与响应' },
+                { text: 'HIDS-Osquery-Wazuh', link: '/网络安全/4-安全架构与防御体系/3-端点安全/HIDS-Osquery-Wazuh' },
+                { text: '终端管控与DLP', link: '/网络安全/4-安全架构与防御体系/3-端点安全/终端管控与DLP' },
+                { text: '端点加固与配置管理', link: '/网络安全/4-安全架构与防御体系/3-端点安全/端点加固与配置管理' },
+              ],
+            },
+            {
+              text: '4-DevSecOps',
+              collapsed: false,
+              items: [
+                { text: 'SDL安全开发生命周期', link: '/网络安全/4-安全架构与防御体系/4-DevSecOps/SDL安全开发生命周期' },
+                { text: 'SAST-DAST-SCA', link: '/网络安全/4-安全架构与防御体系/4-DevSecOps/SAST-DAST-SCA' },
+                { text: 'CI-CD安全门禁', link: '/网络安全/4-安全架构与防御体系/4-DevSecOps/CI-CD安全门禁' },
+              ],
+            },
+            {
+              text: '5-身份安全',
+              collapsed: false,
+              items: [
+                { text: '身份治理IGA', link: '/网络安全/4-安全架构与防御体系/5-身份安全/身份治理IGA' },
+                { text: '特权账号管理PAM', link: '/网络安全/4-安全架构与防御体系/5-身份安全/特权账号管理PAM' },
+                { text: 'IDaaS与Okta-AzureAD', link: '/网络安全/4-安全架构与防御体系/5-身份安全/IDaaS与Okta-AzureAD' },
+                { text: '身份威胁检测ITDR', link: '/网络安全/4-安全架构与防御体系/5-身份安全/身份威胁检测ITDR' },
+              ],
+            },
+          ],
+        },
+        {
+          text: '5-AI安全',
+          collapsed: false,
+          items: [
+            {
+              text: '1-对抗性攻击与防御',
+              collapsed: false,
+              items: [
+                { text: '对抗样本生成', link: '/网络安全/5-AI安全/1-对抗性攻击与防御/对抗样本生成' },
+                { text: '黑盒与白盒攻击', link: '/网络安全/5-AI安全/1-对抗性攻击与防御/黑盒与白盒攻击' },
+                { text: '防御蒸馏与对抗训练', link: '/网络安全/5-AI安全/1-对抗性攻击与防御/防御蒸馏与对抗训练' },
+              ],
+            },
+            {
+              text: '2-大模型安全LLM',
+              collapsed: false,
+              items: [
+                { text: '提示注入与越狱攻击', link: '/网络安全/5-AI安全/2-大模型安全LLM/提示注入与越狱攻击' },
+                { text: '模型幻觉与安全对齐', link: '/网络安全/5-AI安全/2-大模型安全LLM/模型幻觉与安全对齐' },
+                { text: 'LLM红队测试', link: '/网络安全/5-AI安全/2-大模型安全LLM/LLM红队测试' },
+              ],
+            },
+            {
+              text: '3-模型投毒与供应链',
+              collapsed: false,
+              items: [
+                { text: '训练数据投毒', link: '/网络安全/5-AI安全/3-模型投毒与供应链/训练数据投毒' },
+                { text: '模型后门攻击', link: '/网络安全/5-AI安全/3-模型投毒与供应链/模型后门攻击' },
+              ],
+            },
+            {
+              text: '4-模型窃取与隐私',
+              collapsed: false,
+              items: [
+                { text: '模型提取攻击', link: '/网络安全/5-AI安全/4-模型窃取与隐私/模型提取攻击' },
+                { text: '成员推理攻击', link: '/网络安全/5-AI安全/4-模型窃取与隐私/成员推理攻击' },
+                { text: '联邦学习安全', link: '/网络安全/5-AI安全/4-模型窃取与隐私/联邦学习安全' },
+              ],
+            },
+            {
+              text: '5-AI治理与合规',
+              collapsed: false,
+              items: [
+                { text: 'AI伦理与监管', link: '/网络安全/5-AI安全/5-AI治理与合规/AI伦理与监管' },
+                { text: 'AI安全评估框架', link: '/网络安全/5-AI安全/5-AI治理与合规/AI安全评估框架' },
+              ],
+            },
+          ],
+        },
+        {
+          text: '6-新兴领域',
+          collapsed: false,
+          items: [
+            {
+              text: 'IoT与工控安全',
+              collapsed: false,
+              items: [
+                { text: '物联网固件分析', link: '/网络安全/6-新兴领域/IoT与工控安全/物联网固件分析' },
+                { text: '工控协议安全Modbus-DNP3', link: '/网络安全/6-新兴领域/IoT与工控安全/工控协议安全Modbus-DNP3' },
+                { text: 'PLC攻击与防护', link: '/网络安全/6-新兴领域/IoT与工控安全/PLC攻击与防护' },
+                { text: 'SCADA安全', link: '/网络安全/6-新兴领域/IoT与工控安全/SCADA安全' },
+              ],
+            },
+            {
+              text: '供应链安全与SBOM',
+              collapsed: false,
+              items: [
+                { text: '软件供应链攻击案例分析', link: '/网络安全/6-新兴领域/供应链安全与SBOM/软件供应链攻击案例分析' },
+                { text: 'SBOM标准SPDX-CycloneDX', link: '/网络安全/6-新兴领域/供应链安全与SBOM/SBOM标准SPDX-CycloneDX' },
+              ],
+            },
+            {
+              text: '量子计算与密码学',
+              collapsed: false,
+              items: [
+                { text: '量子计算对密码体系影响', link: '/网络安全/6-新兴领域/量子计算与密码学/量子计算对密码体系影响' },
+                { text: '后量子密码Lattice-based', link: '/网络安全/6-新兴领域/量子计算与密码学/后量子密码Lattice-based' },
+                { text: 'QKD量子密钥分发', link: '/网络安全/6-新兴领域/量子计算与密码学/QKD量子密钥分发' },
+              ],
+            },
+          ],
+        },
+      ],
     },
 
     socialLinks: [
