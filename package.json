@@ -1,0 +1,13 @@
+{
+  "name": "sec-learning",
+  "version": "1.0.0",
+  "description": "网络安全与数据安全知识指南",
+  "scripts": {
+    "dev": "vitepress dev docs",
+    "build": "vitepress build docs",
+    "preview": "vitepress preview docs"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.0"
+  }
+}
