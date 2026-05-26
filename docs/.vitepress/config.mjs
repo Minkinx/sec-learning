@@ -6,6 +6,9 @@ export default defineConfig({
   lang: 'zh-CN',
   base: '/',
   ignoreDeadLinks: true,
+  head: [
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+  ],
 
   themeConfig: {
     nav: [
