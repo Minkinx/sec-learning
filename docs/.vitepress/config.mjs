@@ -5,6 +5,7 @@ export default defineConfig({
   description: '网络安全与数据安全知识指南',
   lang: 'zh-CN',
   base: '/',
+  ignoreDeadLinks: true,
 
   themeConfig: {
     nav: [
