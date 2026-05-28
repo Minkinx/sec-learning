@@ -107,9 +107,189 @@ mTLS 实现双向认证，适用于零信任网络和服务间通信：
 - 配合 SPIFFE 实现 workload identity
 - 证书轮换通过 sidecar proxy 自动完成
 
+## 服务器配置示例
+
+### Nginx 安全配置
+
+```nginx
+# /etc/nginx/conf.d/tls.conf
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name example.com;
+
+    # 证书路径
+    ssl_certificate     /etc/letsencrypt/live/example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;
+
+    # TLS 协议配置
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers off;  # TLS 1.3 不需要此选项
+
+    # 推荐的密码套件顺序 (TLS 1.2 兼容)
+    ssl_ciphers 'ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:\
+                 ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:\
+                 ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305';
+
+    # DH 参数 (2048 bit 以上)
+    ssl_dhparam /etc/ssl/dhparam.pem;
+
+    # OCSP Stapling
+    ssl_stapling on;
+    ssl_stapling_verify on;
+    resolver 8.8.8.8 1.1.1.1 valid=300s;
+    resolver_timeout 5s;
+
+    # HSTS
+    add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" always;
+
+    # Session 缓存
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 1h;
+    ssl_session_tickets off;
+}
+```
+
+### Apache 安全配置
+
+```apache
+# /etc/httpd/conf.d/tls.conf
+<VirtualHost *:443>
+    ServerName example.com
+
+    SSLEngine on
+    SSLCertificateFile    /etc/letsencrypt/live/example.com/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/example.com/privkey.pem
+
+    # TLS 协议
+    SSLProtocol             all -SSLv3 -TLSv1 -TLSv1.1
+    SSLProxyProtocol        all -SSLv3 -TLSv1 -TLSv1.1
+
+    # 密码套件
+    SSLCipherSuite          ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:\
+                            ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:\
+                            ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305
+    SSLHonorCipherOrder     on
+
+    # HSTS
+    Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+
+    # OCSP Stapling
+    SSLUseStapling          on
+    SSLStaplingResponderTimeout 5
+    SSLStaplingReturnResponderErrors off
+    SSLStaplingCache        shmcb:/var/run/ocsp(128000)
+
+    # Session 缓存
+    SSLSessionCache         shmcb:/var/run/ssl_cache(512000)
+    SSLSessionCacheTimeout  300
+</VirtualHost>
+```
+
+### AWS ALB (Application Load Balancer) 配置
+
+AWS ALB 通过 AWS CLI 或 Console 配置 TLS 策略：
+
+```bash
+# 使用 AWS CLI 创建 HTTPS 监听器，引用安全策略
+aws elbv2 create-listener \
+    --load-balancer-arn arn:aws:elasticloadbalancing:us-east-1:123456789012:loadbalancer/app/my-alb/abc123 \
+    --protocol HTTPS \
+    --port 443 \
+    --certificates CertificateArn=arn:aws:acm:us-east-1:123456789012:certificate/abc123 \
+    --ssl-policy ELBSecurityPolicy-TLS13-1-2-2021-06 \
+    --default-actions Type=forward,TargetGroupArn=arn:aws:elasticloadbalancing:us-east-1:123456789012:targetgroup/my-tg/xyz789
+```
+
+**推荐的 AWS 安全策略**：
+
+| 策略名称 | TLS 1.3 | TLS 1.2 | 前向安全 | 适用场景 |
+|----------|---------|---------|----------|----------|
+| ELBSecurityPolicy-TLS13-1-2-2021-06 | 支持 | 支持 | 强制 | 通用推荐（PCI DSS 合规） |
+| ELBSecurityPolicy-TLS13-1-2-Res-2021-06 | 支持 | 支持 | 强制 | 更高安全需求 |
+| ELBSecurityPolicy-TLS13-1-2-Ext1-2021-06 | 支持 | 支持 | 强制 | 兼容遗留客户端 |
+| ELBSecurityPolicy-2016-08 | 不支持 | 支持 | 可选 | 仅兼容旧客户端 |
+
+### 配置安全性检查清单
+
+| 检查项 | 检查方法 | 通过标准 |
+|--------|----------|----------|
+| TLS 协议版本 | nmap --script ssl-enum-ciphers | 仅 TLSv1.2+ |
+| 弱密码套件 | testssl.sh 扫描 | 无 RC4/3DES/CBC |
+| 证书有效性 | openssl verify | 未过期，链完整 |
+| HSTS 配置 | curl -I | max-age ≥ 31536000 |
+| OCSP Stapling | openssl s_client -status | OCSP response present |
+| 前向安全性 | testssl.sh -P | 所有套件支持 PFS |
+| CRIME/BREACH 攻击 | testssl.sh 扫描 | 不脆弱 |
+
+## 证书生命周期管理
+
+### Let's Encrypt + Certbot 自动化
+
+```bash
+# 安装 Certbot (Nginx 插件)
+sudo certbot --nginx -d example.com -d www.example.com
+
+# DNS-01 挑战 (通配符证书)
+sudo certbot certonly --manual --preferred-challenges dns \
+    -d example.com -d *.example.com
+
+# 自动续期 (默认 Certbot 自动执行)
+sudo certbot renew --dry-run  # 验证续期流程
+```
+
+### Kubernetes cert-manager 集成
+
+```yaml
+# Issuer 定义 (Let's Encrypt 生产环境)
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: admin@example.com
+    privateKeySecretRef:
+      name: letsencrypt-prod-key
+    solvers:
+    - http01:
+        ingress:
+          class: nginx
+---
+# 证书申请
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: example-com-tls
+  namespace: default
+spec:
+  secretName: example-com-tls
+  duration: 2160h   # 90 天
+  renewBefore: 360h # 提前 15 天续期
+  dnsNames:
+  - example.com
+  - www.example.com
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+```
+
+### 证书类型选型指南
+
+| 证书类型 | 验证层级 | 适用场景 | 成本 |
+|----------|----------|----------|------|
+| DV (Domain Validation) | 域名控制权验证 | 一般 Web 服务 | 免费（Let's Encrypt） |
+| OV (Organization Validation) | 组织身份验证 | 企业官网、API 服务 | 中等 |
+| EV (Extended Validation) | 严格组织验证 | 金融机构、政务网站 | 高 |
+| 通配符 (Wildcard) | 覆盖子域名 | 多子域统一管理 | 中-高 |
+| 私有 CA | 内部信任链 | 内部服务 mTLS | 自建成本 |
+
 ## 参考标准
 
 - NIST SP 800-52 Rev.2 (TLS Implementation)
 - IETF RFC 8446 (TLS 1.3)
 - OWASP Transport Layer Protection Cheat Sheet
 - Mozilla TLS Guidelines (https://wiki.mozilla.org/Security/Server_Side_TLS)
+- Let's Encrypt ACME Protocol (RFC 8555)
+- cert-manager.io 官方文档
