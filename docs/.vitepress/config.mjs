@@ -5,7 +5,7 @@ export default defineConfig({
   title: 'sec-learning',
   description: '网络安全与数据安全知识指南',
   lang: 'zh-CN',
-  base: '/',
+  base: '/sec-learning/',
   ignoreDeadLinks: true,
   markdown: {
     config: (md) => {
@@ -13,7 +13,7 @@ export default defineConfig({
     },
   },
   head: [
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/sec-learning/favicon.svg' }],
   ],
 
   themeConfig: {
